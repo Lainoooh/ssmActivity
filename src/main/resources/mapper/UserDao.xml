@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.activity.dao.UserDao">
+    <select id="findUserList" resultType="com.ssm.activity.domain.po.User">
+        select * from t_user where 1=1
+        <if test="keyWord !=null and keyWord!=''">
+            and (
+            stu_no like concat('%',#{keyWord},'%')
+            or
+            user_name like concat('%',#{keyWord},'%')
+            )
+        </if>
+        and is_admin=0
+    </select>
+</mapper>

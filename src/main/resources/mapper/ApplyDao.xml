@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.activity.dao.ApplyDao">
+    <select id="findApplyList" resultType="com.ssm.activity.domain.po.Apply">
+        select a.*,act.activity_name,u.user_name,u.stu_no,u.tel_num,u.email from t_apply a
+        left join t_activity act on a.activity_id = act.id
+        left join t_user u on a.user_id = u.id
+        where 1=1
+        <if test="userId !=null and userId!=''">
+            and a.user_id = #{userId}
+        </if>
+        order by a.create_time DESC
+    </select>
+</mapper>

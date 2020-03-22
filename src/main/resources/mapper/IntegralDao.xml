@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.activity.dao.IntegralDao">
+    <insert id="insertIntegral" parameterType="com.ssm.activity.domain.po.Integral">
+        insert into t_integral
+        (id,user_id,user_name,stu_no,activity_id,activity_name,activity_time,year,create_time)
+        value (#{integral.id},#{integral.userId},#{integral.userName},#{integral.stuNo},#{integral.activityId},#{integral.activityName},#{integral.activityTime},#{integral.year},now())
+    </insert>
+
+    <select id="findListByActivityId" resultType="com.ssm.activity.domain.po.Integral">
+        select * from t_integral where activity_id = #{activityId}
+        <if test="keyWord !=null and keyWord!=''">
+            and (
+            stu_no like concat('%',#{keyWord},'%')
+            or
+            user_name like concat('%',#{keyWord},'%')
+            )
+        </if>
+        order by integral DESC
+    </select>
+
+</mapper>
